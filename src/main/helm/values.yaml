@@ -1,0 +1,4 @@
+app:
+  name: bff
+  image:
+    repository: "onecx/onecx-search-config-bff"
