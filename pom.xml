@@ -176,17 +176,17 @@
                 <artifactId>download-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>onecx-search-config-v1</id>
+                        <id>onecx-search-config-internal</id>
                         <phase>generate-resources</phase>
                         <goals>
                             <goal>wget</goal>
                         </goals>
                         <configuration>
                             <uri>
-                                https://raw.githubusercontent.com/onecx/onecx-search-config-svc/main/src/main/openapi/search-config-openapi-v1.yaml
+                                https://raw.githubusercontent.com/onecx/onecx-search-config-svc/main/src/main/openapi/search-config-openapi-internal.yaml
                             </uri>
                             <outputDirectory>target/tmp/openapi</outputDirectory>
-                            <outputFileName>onecx-search-config-v1.yaml</outputFileName>
+                            <outputFileName>onecx-search-config-internal.yaml</outputFileName>
                             <skipCache>true</skipCache>
                         </configuration>
                     </execution>

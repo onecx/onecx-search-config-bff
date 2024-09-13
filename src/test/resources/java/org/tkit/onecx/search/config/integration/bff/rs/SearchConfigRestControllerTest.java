@@ -15,7 +15,7 @@ import org.mockserver.model.MediaType;
 import org.tkit.onecx.search.config.bff.rs.controllers.SearchConfigRestController;
 import org.tkit.quarkus.log.cdi.LogService;
 
-import gen.org.tkit.onecx.searchconfig.v1.client.model.SearchConfig;
+import gen.org.tkit.onecx.searchconfig.internal.client.model.SearchConfig;
 import io.quarkiverse.mockserver.test.InjectMockServerClient;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
@@ -48,13 +48,13 @@ class SearchConfigRestControllerTest extends AbstractTest {
         var searchConfig = new SearchConfig();
         searchConfig.setConfigId(configId);
         // create mock get rest endpoint
-        mockServerClient.when(request().withPath("/v1/searchConfig/" + configId).withMethod(HttpMethod.GET))
+        mockServerClient.when(request().withPath("/internal/searchConfig/" + configId).withMethod(HttpMethod.GET))
                 .withId(mockGetId)
                 .respond(httpRequest -> response().withStatusCode(OK.getStatusCode())
                         .withContentType(MediaType.APPLICATION_JSON).withBody(JsonBody.json(searchConfig)));
 
         // create mock delete rest endpoint
-        mockServerClient.when(request().withPath("/v1/searchConfig/" + configId).withMethod(HttpMethod.DELETE))
+        mockServerClient.when(request().withPath("/internal/searchConfig/" + configId).withMethod(HttpMethod.DELETE))
                 .withId(mockDeleteId)
                 .respond(httpRequest -> response().withStatusCode(NO_CONTENT.getStatusCode()));
 
@@ -76,7 +76,7 @@ class SearchConfigRestControllerTest extends AbstractTest {
 
         mockServerClient.clear(mockGetId);
 
-        mockServerClient.when(request().withPath("/v1/searchConfig/" + configId).withMethod(HttpMethod.GET))
+        mockServerClient.when(request().withPath("/internal/searchConfig/" + configId).withMethod(HttpMethod.GET))
                 .withId(mockGetId)
                 .respond(httpRequest -> response().withStatusCode(NOT_FOUND.getStatusCode()));
 

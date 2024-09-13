@@ -2,3 +2,19 @@ app:
   name: bff
   image:
     repository: "onecx/onecx-search-config-bff"
+  operator:
+    permission:
+      enabled: true
+      spec:
+        permissions:
+          searchConfig:
+            read: permission on all GET requests and POST search
+            write: permission on PUT, POST, PATCH requests, where objects are saved or updated
+            delete: permission on all DELETE requests
+      keycloak:
+        client:
+          enabled: true
+          spec:
+            kcConfig:
+              defaultClientScopes: [ ocx-sc:all, ocx-pm:read ]
+

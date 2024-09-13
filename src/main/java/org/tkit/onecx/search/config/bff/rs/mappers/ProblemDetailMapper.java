@@ -5,7 +5,7 @@ import org.mapstruct.Mapping;
 import org.tkit.quarkus.rs.mappers.OffsetDateTimeMapper;
 
 import gen.org.tkit.onecx.search.config.bff.rs.internal.model.ProblemDetailResponseDTO;
-import gen.org.tkit.onecx.searchconfig.v1.client.model.ProblemDetailResponse;
+import gen.org.tkit.onecx.searchconfig.internal.client.model.ProblemDetailResponse;
 
 @Mapper(uses = { OffsetDateTimeMapper.class })
 public interface ProblemDetailMapper {
