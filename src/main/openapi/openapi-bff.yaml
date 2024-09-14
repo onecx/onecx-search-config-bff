@@ -12,7 +12,7 @@ paths:
     put:
       x-onecx:
         permissions:
-          searchConfig:
+          search-config:
             - write
       tags:
         - SearchConfig
@@ -55,7 +55,7 @@ paths:
     delete:
       x-onecx:
         permissions:
-          searchConfig:
+          search-config:
             - delete
       tags:
         - SearchConfig
@@ -87,7 +87,7 @@ paths:
     get:
       x-onecx:
         permissions:
-          searchConfig:
+          search-config:
             - read
       tags:
         - SearchConfig
@@ -125,8 +125,8 @@ paths:
     post:
       x-onecx:
         permissions:
-          searchConfig:
-            - write
+          search-config:
+            - read
       tags:
         - SearchConfig
       summary: Finds the search config infos for the specified page.
@@ -161,7 +161,7 @@ paths:
     post:
       x-onecx:
         permissions:
-          searchConfig:
+          search-config:
             - write
       tags:
         - SearchConfig
