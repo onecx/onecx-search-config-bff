@@ -1,4 +1,4 @@
-package org.tkit.onecx.search.config.bff.rs;
+package org.tkit.onecx.search.config.integration.bff.rs;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
