@@ -131,6 +131,19 @@ class SearchConfigRestControllerTest extends AbstractTest {
     }
 
     @Test
+    void deleteSearchConfigTest_shouldNotBeAuthorized() {
+        String configId = "c1";
+
+        given()
+                .auth().oauth2(keycloakClient.getAccessToken(USER))
+                .header(APM_HEADER_PARAM, USER)
+                .pathParam("configId", configId)
+                .delete("/{configId}")
+                .then()
+                .statusCode(FORBIDDEN.getStatusCode());
+    }
+
+    @Test
     void loadSearchConfigInfos_shouldReturnAllSearchConfigInfos() {
         var info1 = new SearchConfigLoadResult();
         info1.setId("1");
@@ -274,6 +287,29 @@ class SearchConfigRestControllerTest extends AbstractTest {
                 .post()
                 .then()
                 .statusCode(BAD_REQUEST.getStatusCode()).log().all();
+    }
+
+    @Test
+    void createSearchConfigTest_shouldNotBeAuthorized() {
+        var request = new CreateSearchConfigRequestDTO();
+        request.setName("config");
+        request.setAppId("appId");
+        request.setColumns(List.of());
+        request.setFieldListVersion(1);
+        request.setIsAdvanced(false);
+        request.setIsReadonly(false);
+        request.setPage("page");
+        request.setProductName("product");
+        request.setValues(new HashMap<>());
+
+        given()
+                .auth().oauth2(keycloakClient.getAccessToken(USER))
+                .header(APM_HEADER_PARAM, USER)
+                .contentType(APPLICATION_JSON)
+                .body(request)
+                .post()
+                .then()
+                .statusCode(FORBIDDEN.getStatusCode()).log().all();
     }
 
     @Test
@@ -433,5 +469,29 @@ class SearchConfigRestControllerTest extends AbstractTest {
                 .put(editedConfig.getId())
                 .then()
                 .statusCode(BAD_REQUEST.getStatusCode()).log().all();
+    }
+
+    @Test
+    void updateSearchConfigTest_shouldNotBeAuthorized() {
+        var searchConfigDto = new SearchConfigDTO();
+        searchConfigDto.setId("id");
+        searchConfigDto.setName("name");
+        searchConfigDto.setAppId("appId");
+        searchConfigDto.setProductName("productName");
+        searchConfigDto.setPage("page");
+        searchConfigDto.setModificationCount(1);
+        searchConfigDto.setIsAdvanced(false);
+        searchConfigDto.setIsReadonly(false);
+        searchConfigDto.setFieldListVersion(1);
+        var request = new UpdateSearchConfigRequestDTO();
+        request.setSearchConfig(searchConfigDto);
+
+        given().auth().oauth2(keycloakClient.getAccessToken(USER))
+                .header(APM_HEADER_PARAM, USER)
+                .contentType(APPLICATION_JSON)
+                .body(request)
+                .put(searchConfigDto.getId())
+                .then()
+                .statusCode(FORBIDDEN.getStatusCode()).log().all();
     }
 }
