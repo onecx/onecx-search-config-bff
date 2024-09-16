@@ -51,6 +51,10 @@ public interface SearchConfigMapper {
 
     SearchConfigLoadRequest getInfos(GetSearchConfigInfosRequestDTO getSearchConfigInfosRequestDTO);
 
+    SearchConfigLoadRequest getInfos(UpdateSearchConfigRequest updateSearchConfigRequest);
+
+    SearchConfigLoadRequest getInfos(CreateSearchConfigRequest createSearchConfigRequest);
+
     // https://github.com/mapstruct/mapstruct/issues/2326#issuecomment-761817392
     default GetSearchConfigInfosResponseDTO mapGetInfos(List<SearchConfigLoadResult> loadResult) {
         return mapGetInfos(null, loadResult);

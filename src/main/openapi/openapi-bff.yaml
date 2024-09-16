@@ -46,12 +46,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ProblemDetailResponse"
-        "500":
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ProblemDetailResponse"
     delete:
       x-onecx:
         permissions:
@@ -74,12 +68,6 @@ paths:
           description: Config deleted
         "400":
           description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ProblemDetailResponse"
-        "500":
-          description: Internal Server Error
           content:
             application/json:
               schema:
@@ -115,12 +103,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ProblemDetailResponse"
-        "500":
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ProblemDetailResponse"
   /searchConfig/infos/:
     post:
       x-onecx:
@@ -147,12 +129,6 @@ paths:
                 $ref: "#/components/schemas/GetSearchConfigInfosResponse"
         "400":
           description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ProblemDetailResponse"
-        "500":
-          description: Internal Server Error
           content:
             application/json:
               schema:
@@ -184,12 +160,6 @@ paths:
                 $ref: "#/components/schemas/CreateSearchConfigResponse"
         "400":
           description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ProblemDetailResponse"
-        "500":
-          description: Internal Server Error
           content:
             application/json:
               schema:

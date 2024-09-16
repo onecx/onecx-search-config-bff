@@ -40,10 +40,7 @@ public class SearchConfigRestController implements SearchConfigApiService {
     public Response updateSearchConfig(String id, UpdateSearchConfigRequestDTO updateSearchConfigRequestDTO) {
         UpdateSearchConfigRequest updatedSearchConfig = mapper.update(updateSearchConfigRequestDTO);
         try (Response updateResponse = searchConfigApi.updateConfig(id, updatedSearchConfig)) {
-            SearchConfigLoadRequest searchConfigLoadRequest = new SearchConfigLoadRequest();
-            searchConfigLoadRequest.setAppId(updatedSearchConfig.getAppId());
-            searchConfigLoadRequest.setProductName(updatedSearchConfig.getProductName());
-            searchConfigLoadRequest.setPage(updatedSearchConfig.getPage());
+            SearchConfigLoadRequest searchConfigLoadRequest = mapper.getInfos(updatedSearchConfig);
             try (Response findConfigsResponse = searchConfigApi.loadByProductAppAndPage(searchConfigLoadRequest)) {
                 UpdateSearchConfigResponseDTO responseDTO = mapper
                         .mapUpdate(findConfigsResponse.readEntity(new GenericType<List<SearchConfigLoadResult>>() {
@@ -84,10 +81,7 @@ public class SearchConfigRestController implements SearchConfigApiService {
         CreateSearchConfigRequest createSearchConfigRequest = mapper.create(createSearchConfigRequestDTO);
         try (Response createResponse = searchConfigApi.createConfig(createSearchConfigRequest)) {
             SearchConfigDTO searchConfigDTO = mapper.map(createResponse.readEntity(SearchConfig.class));
-            SearchConfigLoadRequest searchConfigLoadRequest = new SearchConfigLoadRequest();
-            searchConfigLoadRequest.setAppId(createSearchConfigRequest.getAppId());
-            searchConfigLoadRequest.setProductName(createSearchConfigRequest.getProductName());
-            searchConfigLoadRequest.setPage(createSearchConfigRequest.getPage());
+            SearchConfigLoadRequest searchConfigLoadRequest = mapper.getInfos(createSearchConfigRequest);
             try (Response findConfigsResponse = searchConfigApi.loadByProductAppAndPage(searchConfigLoadRequest)) {
                 CreateSearchConfigResponseDTO responseDTO = mapper
                         .mapCreate(searchConfigDTO.getId(),
