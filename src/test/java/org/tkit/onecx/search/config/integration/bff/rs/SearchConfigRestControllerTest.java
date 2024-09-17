@@ -204,7 +204,7 @@ class SearchConfigRestControllerTest extends AbstractTest {
         request.setPage("page");
         request.setProductName("product");
 
-        var output = given()
+        given()
                 .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
                 .header(APM_HEADER_PARAM, ADMIN)
                 .contentType(APPLICATION_JSON)
