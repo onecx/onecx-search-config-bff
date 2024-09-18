@@ -199,6 +199,22 @@ class SearchConfigRestControllerTest extends AbstractTest {
     }
 
     @Test
+    void loadSearchConfigInfos_shouldReturnBadRequest() {
+        var request = new GetSearchConfigInfosRequestDTO();
+        request.setPage("page");
+        request.setProductName("product");
+
+        given()
+                .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
+                .header(APM_HEADER_PARAM, ADMIN)
+                .contentType(APPLICATION_JSON)
+                .body(request)
+                .post("/infos/")
+                .then()
+                .statusCode(BAD_REQUEST.getStatusCode());
+    }
+
+    @Test
     void createSearchConfig_shouldCreateSearchConfig() {
         var createdConfig = new SearchConfig();
         createdConfig.setId("created");
