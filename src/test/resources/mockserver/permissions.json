@@ -15,7 +15,7 @@
           "json": {
             "appId": "onecx-search-config-bff",
             "permissions": {
-              "search-config": [
+              "searchConfig": [
                 "read",
                 "write",
                 "delete"
@@ -46,7 +46,7 @@
           "json": {
             "appId": "onecx-search-config-bff",
             "permissions": {
-              "search-config": [
+              "searchConfig": [
                 "read"
               ],
               "permissions": [
