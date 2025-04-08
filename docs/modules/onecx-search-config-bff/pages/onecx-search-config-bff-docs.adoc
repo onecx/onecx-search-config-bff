@@ -1,0 +1,72 @@
+
+include::onecx-search-config-bff-attributes.adoc[opts=optional]
+
+=== Default properties
+
+.{properties-file}
+[%collapsible%open]
+====
+[source,properties,subs=attributes+]
+----
+quarkus.http.auth.permission.health.paths=/q/*
+quarkus.http.auth.permission.health.policy=permit
+quarkus.http.auth.permission.default.paths=/*
+quarkus.http.auth.permission.default.policy=authenticated
+onecx.permissions.application-id=${quarkus.application.name}
+org.eclipse.microprofile.rest.client.propagateHeaders=apm-principal-token
+%prod.quarkus.rest-client.onecx_search_config_internal.url=http://onecx-search-config-svc:8080
+quarkus.openapi-generator.codegen.input-base-dir=target/tmp/openapi
+quarkus.openapi-generator.codegen.spec.onecx_search_config_internal_yaml.config-key=onecx_search_config_internal
+quarkus.openapi-generator.codegen.spec.onecx_search_config_internal_yaml.base-package=gen.org.tkit.onecx.searchconfig.internal.client
+quarkus.openapi-generator.codegen.spec.onecx_search_config_internal_yaml.return-response=true
+quarkus.openapi-generator.codegen.spec.onecx_search_config_internal_yaml.additional-api-type-annotations=@org.eclipse.microprofile.rest.client.annotation.RegisterClientHeaders;
+quarkus.openapi-generator.codegen.spec.onecx_search_config_internal_yaml.additional-model-type-annotations=@io.quarkus.runtime.annotations.RegisterForReflection;
+quarkus.openapi-generator.codegen.spec.onecx_search_config_internal_yaml.enable-security-generation=false
+%prod.quarkus.rest-client.onecx_search_config_internal.providers=io.quarkus.oidc.client.reactive.filter.OidcClientRequestReactiveFilter
+%prod.quarkus.oidc-client.client-id=${quarkus.application.name}
+----
+====
+
+=== Extensions
+
+include::onecx-search-config-bff-extensions.adoc[opts=optional]
+
+=== Container
+
+{docker-registry}[Docker registry]
+
+
+=== Helm
+
+{helm-registry}[Helm registry]
+
+Default values
+
+.{helm-file}
+[source,yaml]
+----
+app:
+  name: bff
+  image:
+    repository: "onecx/onecx-search-config-bff"
+  operator:
+    permission:
+      enabled: true
+      spec:
+        permissions:
+          searchConfig:
+            read: permission on all GET requests and POST search
+            write: permission on PUT, POST, PATCH requests, where objects are saved or updated
+            delete: permission on all DELETE requests
+    keycloak:
+      client:
+        enabled: true
+        spec:
+          kcConfig:
+            defaultClientScopes: [ ocx-sc:all, ocx-pm:read ]
+    microservice:
+      spec:
+        description: OneCX Search Config Backend For Frontend
+        name: OneCX Search Config BFF
+----
+

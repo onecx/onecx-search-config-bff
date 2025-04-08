@@ -1,0 +1,8 @@
+include::onecx-search-config-bff-attributes.adoc[opts=optional]
+
+== onecx-search-config-bff
+
+include::docs.adoc[opts=optional]
+
+
+include::onecx-search-config-bff-docs.adoc[opts=optional]

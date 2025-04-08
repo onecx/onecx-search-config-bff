@@ -17,3 +17,7 @@ app:
         spec:
           kcConfig:
             defaultClientScopes: [ ocx-sc:all, ocx-pm:read ]
+    microservice:
+      spec:
+        description: OneCX Search Config Backend For Frontend
+        name: OneCX Search Config BFF
