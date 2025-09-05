@@ -179,7 +179,7 @@
                         </goals>
                         <configuration>
                             <uri>
-                                https://raw.githubusercontent.com/onecx/onecx-search-config-svc/main/src/main/openapi/search-config-openapi-internal.yaml
+                                https://raw.githubusercontent.com/onecx/onecx-search-config-svc/main/src/main/openapi/search-config-internal.yaml
                             </uri>
                             <outputDirectory>target/tmp/openapi</outputDirectory>
                             <outputFileName>onecx-search-config-internal.yaml</outputFileName>

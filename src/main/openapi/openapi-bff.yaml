@@ -1,12 +1,13 @@
 openapi: "3.0.3"
 info:
   title: onecx-search-config-bff
+  description: Backend-For-Frontend (BFF) service for onecx-search-config. This API provides endpoints to manage Search Configurations
   version: "1.0"
 servers:
   - url: http://onecx-search-config-bff:8080
 tags:
-  - name: SearchConfig
-    description: Execute Search Config CRUD operations
+  - name: searchConfig
+    description: Managing Search Configurations
 paths:
   /searchConfig/{id}:
     put:
@@ -15,9 +16,8 @@ paths:
           searchConfig:
             - write
       tags:
-        - SearchConfig
-      summary: Updates the search config specified by the id
-      description: Updates the search config and returns the updated list of search configs  by page
+        - searchConfig
+      description: Updates a search config by its id and returns the updated list of search configs by page
       operationId: updateSearchConfig
       parameters:
         - name: id
@@ -35,7 +35,7 @@ paths:
         required: true
       responses:
         "200":
-          description: OK
+          description: Search configuration updated successfully
           content:
             application/json:
               schema:
@@ -52,9 +52,8 @@ paths:
           searchConfig:
             - delete
       tags:
-        - SearchConfig
-      summary: Deletes the search config
-      description: Deletes the search config
+        - searchConfig
+      description: Delete a search config by its id
       operationId: deleteSearchConfig
       parameters:
         - name: id
@@ -65,7 +64,7 @@ paths:
             type: string
       responses:
         "204":
-          description: Config deleted
+          description: Search configuration deleted successfully
         "400":
           description: Bad request
           content:
@@ -78,9 +77,8 @@ paths:
           searchConfig:
             - read
       tags:
-        - SearchConfig
-      summary: Gets the search config info by its id.
-      description: The search config for specified id is returned.
+        - searchConfig
+      description: Get a search config by its id
       operationId: getSearchConfig
       parameters:
         - name: id
@@ -90,29 +88,28 @@ paths:
             type: string
       responses:
         "200":
-          description: OK
+          description: Search configuration retrieved successfully
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/GetSearchConfigResponse"
         "404":
-          description: Not found
+          description: Search configuration not found
         "400":
           description: Bad request
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ProblemDetailResponse"
-  /searchConfig/infos/:
+  /searchConfig/infos:
     post:
       x-onecx:
         permissions:
           searchConfig:
             - read
       tags:
-        - SearchConfig
-      summary: Finds the search config infos for the specified page.
-      description: The search configs for the page, product and app are returned.
+        - searchConfig
+      description: Get the search config infos for the specified page.
       operationId: getSearchConfigInfos
       requestBody:
         required: true
@@ -122,7 +119,7 @@ paths:
               $ref: "#/components/schemas/GetSearchConfigInfosRequest"
       responses:
         "200":
-          description: OK
+          description: Search configuration retrieved successfully
           content:
             application/json:
               schema:
@@ -133,16 +130,15 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ProblemDetailResponse"
-  /searchConfig/:
+  /searchConfig:
     post:
       x-onecx:
         permissions:
           searchConfig:
             - write
       tags:
-        - SearchConfig
-      summary: Creates a new search config
-      description: Creates a new search config and returns the updated list of search configs by page
+        - searchConfig
+      description: Create a new search config and returns the updated list of search configs by page
       operationId: createSearchConfig
       requestBody:
         description: Creates a new search config
@@ -153,7 +149,7 @@ paths:
         required: true
       responses:
         "201":
-          description: Created
+          description: Search configuration created successfully
           content:
             application/json:
               schema:
@@ -164,7 +160,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ProblemDetailResponse"
-
 components:
   schemas:
     SearchConfigInfo:
