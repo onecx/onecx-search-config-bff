@@ -35,20 +35,20 @@ class SearchConfigRestControllerTest extends AbstractTest {
     @InjectMockServerClient
     MockServerClient mockServerClient;
 
-    static final String mockGetId = "MOCK_GET";
-    static final String mockPostID = "MOCK_POST";
-    static final String mockLoadId = "MOCK_LOAD";
-    static final String mockDeleteId = "MOCK_DELETE";
-    static final String mockPutId = "MOCK_PUT";
+    static final String MOCK_GET_ID = "MOCK_GET";
+    static final String MOCK_POST_ID = "MOCK_POST";
+    static final String MOCK_LOAD_ID = "MOCK_LOAD";
+    static final String MOCK_DELETE_ID = "MOCK_DELETE";
+    static final String MOCK_PUT_ID = "MOCK_PUT";
 
     @BeforeEach
     void resetExpectation() {
         try {
-            mockServerClient.clear(mockGetId);
-            mockServerClient.clear(mockDeleteId);
-            mockServerClient.clear(mockPostID);
-            mockServerClient.clear(mockLoadId);
-            mockServerClient.clear(mockPutId);
+            mockServerClient.clear(MOCK_GET_ID);
+            mockServerClient.clear(MOCK_DELETE_ID);
+            mockServerClient.clear(MOCK_POST_ID);
+            mockServerClient.clear(MOCK_LOAD_ID);
+            mockServerClient.clear(MOCK_PUT_ID);
         } catch (Exception ex) {
             //  mockId not existing
         }
@@ -61,13 +61,13 @@ class SearchConfigRestControllerTest extends AbstractTest {
         searchConfig.setId(configId);
         // create mock get rest endpoint
         mockServerClient.when(request().withPath("/internal/searchConfig/" + configId).withMethod(HttpMethod.GET))
-                .withId(mockGetId)
+                .withId(MOCK_GET_ID)
                 .respond(httpRequest -> response().withStatusCode(OK.getStatusCode())
                         .withContentType(MediaType.APPLICATION_JSON).withBody(JsonBody.json(searchConfig)));
 
         // create mock delete rest endpoint
         mockServerClient.when(request().withPath("/internal/searchConfig/" + configId).withMethod(HttpMethod.DELETE))
-                .withId(mockDeleteId)
+                .withId(MOCK_DELETE_ID)
                 .respond(httpRequest -> response().withStatusCode(NO_CONTENT.getStatusCode()));
 
         given()
@@ -86,10 +86,10 @@ class SearchConfigRestControllerTest extends AbstractTest {
                 .then()
                 .statusCode(NO_CONTENT.getStatusCode());
 
-        mockServerClient.clear(mockGetId);
+        mockServerClient.clear(MOCK_GET_ID);
 
         mockServerClient.when(request().withPath("/internal/searchConfig/" + configId).withMethod(HttpMethod.GET))
-                .withId(mockGetId)
+                .withId(MOCK_GET_ID)
                 .respond(httpRequest -> response().withStatusCode(NOT_FOUND.getStatusCode()));
 
         given()
@@ -105,12 +105,12 @@ class SearchConfigRestControllerTest extends AbstractTest {
         String configId = "c1";
         // create mock get rest endpoint
         mockServerClient.when(request().withPath("/internal/searchConfig/" + configId).withMethod(HttpMethod.GET))
-                .withId(mockGetId)
+                .withId(MOCK_GET_ID)
                 .respond(httpRequest -> response().withStatusCode(NOT_FOUND.getStatusCode()));
 
         // create mock delete rest endpoint
         mockServerClient.when(request().withPath("/internal/searchConfig/" + configId).withMethod(HttpMethod.DELETE))
-                .withId(mockDeleteId)
+                .withId(MOCK_DELETE_ID)
                 .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode()));
 
         given()
@@ -172,7 +172,7 @@ class SearchConfigRestControllerTest extends AbstractTest {
         var searchConfigInfos = List.of(info1, info2);
         // create mock post rest endpoint
         mockServerClient.when(request().withPath("/internal/searchConfig/load").withMethod(HttpMethod.POST))
-                .withId(mockLoadId)
+                .withId(MOCK_LOAD_ID)
                 .respond(httpRequest -> response().withStatusCode(OK.getStatusCode())
                         .withContentType(MediaType.APPLICATION_JSON)
                         .withBody(JsonBody.json(searchConfigInfos)));
@@ -193,7 +193,7 @@ class SearchConfigRestControllerTest extends AbstractTest {
                 .contentType(APPLICATION_JSON)
                 .extract().as(GetSearchConfigInfosResponseDTO.class);
 
-        Assertions.assertEquals(output.getConfigs().size(), 2);
+        Assertions.assertEquals(2, output.getConfigs().size());
         Assertions.assertTrue(output.getConfigs().stream().anyMatch((item -> item.getId().equals(info1.getId()))));
         Assertions.assertTrue(output.getConfigs().stream().anyMatch((item -> item.getId().equals(info2.getId()))));
     }
@@ -225,7 +225,7 @@ class SearchConfigRestControllerTest extends AbstractTest {
 
         mockServerClient
                 .when(request().withPath("/internal/searchConfig").withMethod(HttpMethod.POST))
-                .withId(mockPostID)
+                .withId(MOCK_POST_ID)
                 .respond(httpRequest -> response().withStatusCode(CREATED.getStatusCode())
                         .withContentType(MediaType.APPLICATION_JSON).withBody(JsonBody.json(createdConfig)));
 
@@ -238,7 +238,8 @@ class SearchConfigRestControllerTest extends AbstractTest {
         var searchConfigInfos = List.of(info1, createdInfo);
 
         // create mock post rest endpoint
-        mockServerClient.when(request().withPath("/internal/searchConfig/load").withMethod(HttpMethod.POST)).withId(mockLoadId)
+        mockServerClient.when(request().withPath("/internal/searchConfig/load").withMethod(HttpMethod.POST))
+                .withId(MOCK_LOAD_ID)
                 .respond(httpRequest -> response().withStatusCode(OK.getStatusCode())
                         .withContentType(MediaType.APPLICATION_JSON)
                         .withBody(JsonBody.json(searchConfigInfos)));
@@ -270,18 +271,14 @@ class SearchConfigRestControllerTest extends AbstractTest {
                 .extract().as(CreateSearchConfigResponseDTO.class);
 
         Assertions.assertEquals(createdConfig.getId(), output.getId());
-        Assertions.assertEquals(output.getConfigs().size(), 2);
+        Assertions.assertEquals(2, output.getConfigs().size());
         Assertions.assertTrue(output.getConfigs().stream().anyMatch((item -> item.getId().equals(info1.getId()))));
         Assertions.assertTrue(output.getConfigs().stream().anyMatch((item -> item.getId().equals(createdConfig.getId()))));
     }
 
     @Test
     void createSearchConfig_shouldReturnBadRequestIfAlreadyExists() {
-        var createdConfig = new SearchConfig();
-        createdConfig.setId("newConfigId");
-        createdConfig.setName("existing-config");
-
-        mockServerClient.when(request().withPath("/internal/searchConfig").withMethod(HttpMethod.POST)).withId(mockPostID)
+        mockServerClient.when(request().withPath("/internal/searchConfig").withMethod(HttpMethod.POST)).withId(MOCK_POST_ID)
                 .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode()));
 
         var request = new CreateSearchConfigRequestDTO();
@@ -349,7 +346,7 @@ class SearchConfigRestControllerTest extends AbstractTest {
         searchConfig.setFieldListVersion(3);
         // create mock get rest endpoint
         mockServerClient.when(request().withPath("/internal/searchConfig/" + configId).withMethod(HttpMethod.GET))
-                .withId(mockGetId)
+                .withId(MOCK_GET_ID)
                 .respond(httpRequest -> response().withStatusCode(OK.getStatusCode())
                         .withContentType(MediaType.APPLICATION_JSON).withBody(JsonBody.json(searchConfig)));
 
@@ -382,11 +379,9 @@ class SearchConfigRestControllerTest extends AbstractTest {
     @Test
     void getSearchConfigTest_shouldReturnNotFound() {
         String configId = "c1";
-        var searchConfig = new SearchConfig();
-        searchConfig.setId(configId);
 
         mockServerClient.when(request().withPath("/internal/searchConfig/" + configId).withMethod(HttpMethod.GET))
-                .withId(mockGetId)
+                .withId(MOCK_GET_ID)
                 .respond(httpRequest -> response().withStatusCode(NOT_FOUND.getStatusCode()));
 
         given()
@@ -407,7 +402,7 @@ class SearchConfigRestControllerTest extends AbstractTest {
         editedConfig.setPage("page");
 
         mockServerClient.when(request().withPath(
-                "/internal/searchConfig/" + editedConfig.getId()).withMethod(HttpMethod.PUT)).withId(mockPutId)
+                "/internal/searchConfig/" + editedConfig.getId()).withMethod(HttpMethod.PUT)).withId(MOCK_PUT_ID)
                 .respond(httpRequest -> response().withStatusCode(OK.getStatusCode())
                         .withContentType(MediaType.APPLICATION_JSON).withBody(JsonBody.json(editedConfig)));
 
@@ -420,7 +415,8 @@ class SearchConfigRestControllerTest extends AbstractTest {
         var searchConfigInfos = List.of(info1, editedInfo);
 
         // create mock post rest endpoint
-        mockServerClient.when(request().withPath("/internal/searchConfig/load").withMethod(HttpMethod.POST)).withId(mockLoadId)
+        mockServerClient.when(request().withPath("/internal/searchConfig/load").withMethod(HttpMethod.POST))
+                .withId(MOCK_LOAD_ID)
                 .respond(httpRequest -> response().withStatusCode(OK.getStatusCode())
                         .withContentType(MediaType.APPLICATION_JSON)
                         .withBody(JsonBody.json(searchConfigInfos)));
@@ -462,7 +458,7 @@ class SearchConfigRestControllerTest extends AbstractTest {
         editedConfig.setPage("page");
 
         mockServerClient.when(request().withPath(
-                "/internal/searchConfig/" + editedConfig.getId()).withMethod(HttpMethod.PUT)).withId(mockPutId)
+                "/internal/searchConfig/" + editedConfig.getId()).withMethod(HttpMethod.PUT)).withId(MOCK_PUT_ID)
                 .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode()));
 
         var searchConfigDto = new SearchConfigDTO();
