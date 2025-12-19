@@ -23,7 +23,7 @@ quarkus.openapi-generator.codegen.spec.onecx_search_config_internal_yaml.additio
 quarkus.openapi-generator.codegen.spec.onecx_search_config_internal_yaml.additional-model-type-annotations=@io.quarkus.runtime.annotations.RegisterForReflection;
 quarkus.openapi-generator.codegen.spec.onecx_search_config_internal_yaml.enable-security-generation=false
 %prod.quarkus.rest-client.onecx_search_config_internal.providers=io.quarkus.oidc.client.reactive.filter.OidcClientRequestReactiveFilter
-%prod.quarkus.oidc-client.client-id=${ONECX_OIDC_CLIENT_CLIENT_ID:${quarkus.application.name}}
+%prod.quarkus.oidc-client.client-id=${quarkus.application.name}
 ----
 ====
 
@@ -47,8 +47,6 @@ Default values
 ----
 app:
   name: bff
-  template:
-    oidc_client_id: "ONECX_OIDC_CLIENT_CLIENT_ID"
   image:
     repository: "onecx/onecx-search-config-bff"
   operator:
@@ -69,6 +67,10 @@ app:
     microservice:
       spec:
         description: OneCX Search Config Backend For Frontend
+        name: OneCX Search Config BFF
+----
+
+iption: OneCX Search Config Backend For Frontend
         name: OneCX Search Config BFF
 ----
 
