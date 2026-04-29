@@ -1,10 +1,12 @@
 
 include::onecx-search-config-bff-attributes.adoc[opts=optional]
 
-=== Default properties
+{docker-registry}[Link to Docker registry]
+
+== Default properties
 
 .{properties-file}
-[%collapsible%open]
+[%collapsible]
 ====
 [source,properties,subs=attributes+]
 ----
@@ -27,22 +29,18 @@ quarkus.openapi-generator.codegen.spec.onecx_search_config_internal_yaml.enable-
 ----
 ====
 
-=== Extensions
-
+== Extensions
+.Extensions List
+[%collapsible]
+====
 include::onecx-search-config-bff-extensions.adoc[opts=optional]
+====
 
-=== Container
+== Helm
 
-{docker-registry}[Docker registry]
+{helm-registry}[Link to Helm registry]
 
-
-=== Helm
-
-{helm-registry}[Helm registry]
-
-Default values
-
-.{helm-file}
+.Default values in {helm-file}
 [source,yaml]
 ----
 app:
@@ -69,8 +67,3 @@ app:
         description: OneCX Search Config Backend For Frontend
         name: OneCX Search Config BFF
 ----
-
-iption: OneCX Search Config Backend For Frontend
-        name: OneCX Search Config BFF
-----
-

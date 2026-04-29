@@ -49,7 +49,7 @@ class SearchConfigRestControllerTest extends AbstractTest {
             mockServerClient.clear(MOCK_POST_ID);
             mockServerClient.clear(MOCK_LOAD_ID);
             mockServerClient.clear(MOCK_PUT_ID);
-        } catch (Exception ex) {
+        } catch (Exception _) {
             //  mockId not existing
         }
     }
